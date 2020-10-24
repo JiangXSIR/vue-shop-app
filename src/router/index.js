@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Login from "../views/login/Login.vue";
-import * as shared from 'common/shared/shared.js'
+import Login from '../views/login/Login.vue'
+import Layout from '../views/pages/Layout.vue'
+import Home from '../views/pages/home/home.vue'
+import UserList from '../views/pages/user/UserList.vue'
 
 Vue.use(Router)
 
@@ -13,6 +15,15 @@ const routes = [
   {
     path: '/',
     redirect: '/login'
+  },
+  {
+    path: '/main',
+    component: Layout,
+    redirect: '/home',
+    children: [
+      { path: '/home', component: Home },
+      { path: '/users', component: UserList },
+    ]
   }
 ]
 
@@ -28,7 +39,7 @@ router.beforeEach((to, from, next) => {
   }
 
   // 获取token
-  let token = shared.getSessionStorage('token');
+  let token = window.sessionStorage.getItem('token');
   if (token) {
     return next();
   }

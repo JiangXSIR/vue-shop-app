@@ -1,7 +1,8 @@
 import axios from 'axios';
 
-const baseURL = "http://timemeetyou.com:8889/api/private/v1/";
+const baseURL = 'http://timemeetyou.com:8889/api/private/v1/';
 const timeOut = 5000;
+const Authorization = 'Authorization';
 
 export function request(config) {
   // 1.创建axios的实例
@@ -14,6 +15,7 @@ export function request(config) {
   // 2.axios的拦截器
   // 2.1.请求拦截的作用
   instance.interceptors.request.use(config => {
+    config.headers[Authorization] = window.sessionStorage.getItem('token');
     console.log("interceptors request", config);
     return config;
   }, error => {

@@ -66,7 +66,7 @@ export default {
     },
     loginSuccessDeal(result) {
       shared.setSessionStorage('token', result.data.token);
-      this.$router.push("/home");
+      this.$router.push("/main");
     },
     resetLoginForm() {
       // console.log(this);
